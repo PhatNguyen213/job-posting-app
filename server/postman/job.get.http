@@ -1,0 +1,6 @@
+
+### get jobs
+@url_dev=http://localhost:6000
+
+GET {{url_dev}}/jobs/9
+Content-Type: application/json

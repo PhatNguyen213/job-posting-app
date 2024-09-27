@@ -1,0 +1,11 @@
+### create job
+@url_dev=http://localhost:6000
+
+POST {{url_dev}}/jobs
+Content-Type: application/json
+
+{
+    "title": "Job 2",
+    "description": "Job 2 Description",
+    "expiry_date": "15/02/2024" 
+}
