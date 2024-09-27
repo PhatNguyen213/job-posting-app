@@ -1,25 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { useState } from "react";
+import { createJob } from "../../services/job-service";
+import JobForm from "./JobForm";
+import classes from "./Job.module.css";
+import Button from "../../components/buttons";
 
 export default function CreateJob() {
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    expiryDate: dayjs("30/09/2024"),
+  });
+  const navigate = useNavigate();
+
+  const submit = async () => {
+    const response = await createJob(form);
+    const newJob = await response.json();
+    navigate(`/jobs/${newJob.id}/edit`);
+  };
+
   return (
-    <>
+    <div className={classes.main}>
       <header>
         <Link to="/jobs">Back</Link>
         <h1>Create Job</h1>
       </header>
       <main>
-        <form>
-          <p>
-            <label htmlFor="title">Job Title</label>
-            <input type="text" id="title" name="title" required />
-          </p>
-          <p>
-            <label htmlFor="description">Job Description</label>
-            <input type="text" id="description" name="description" required />
-          </p>
-          <button type="submit">Submit</button>
-        </form>
+        <JobForm form={form} setForm={setForm} />
+        <Button onClick={submit}>Create</Button>
       </main>
-    </>
+    </div>
   );
 }

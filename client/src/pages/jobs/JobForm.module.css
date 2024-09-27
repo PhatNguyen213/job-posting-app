@@ -1,0 +1,21 @@
+.row {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.label {
+  font-size: 1.2rem;
+  font-family: ui-monospace;
+  width: 150px;
+}
+
+.input {
+  width: 400px;
+  font-size: 1rem;
+}
+
+.datepicker-row {
+  display: flex;
+  align-items: center;
+}

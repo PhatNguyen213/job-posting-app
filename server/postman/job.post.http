@@ -1,5 +1,5 @@
 ### create job
-@url_dev=http://localhost:6000
+@url_dev=http://localhost:6001/v1/api
 
 POST {{url_dev}}/jobs
 Content-Type: application/json

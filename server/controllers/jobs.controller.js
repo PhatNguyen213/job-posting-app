@@ -2,6 +2,7 @@ const {
   getJobs,
   getJobById,
   createJob,
+  updateJob,
   getTotalCount,
 } = require("../services/jobs");
 
@@ -12,6 +13,14 @@ class JobsController {
       return res.json(result.rows[0]);
     } catch (error) {
       console.log("Error creating new job", error);
+    }
+  };
+  updateJob = async (req, res, next) => {
+    try {
+      const result = await updateJob(req.body);
+      return res.json(result.rows[0]);
+    } catch (error) {
+      console.log("Error updating new job", error);
     }
   };
   getJobs = async (req, res, next) => {
@@ -29,8 +38,18 @@ class JobsController {
   };
   getJobById = async (req, res, next) => {
     try {
-      const jobs = await getJobById();
-      return res.json(jobs.rows);
+      const { id } = req.params;
+      const job = await getJobById(id);
+      return res.json(job.rows[0]);
+    } catch (error) {
+      console.log("Error fetching jobs", error);
+    }
+  };
+  deleteJob = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const job = await getJobById(id);
+      return res.json(job.rows[0]);
     } catch (error) {
       console.log("Error fetching jobs", error);
     }
