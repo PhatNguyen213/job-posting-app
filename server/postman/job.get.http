@@ -1,6 +1,6 @@
 
 ### get jobs
-@url_dev=http://localhost:6000
+@url_dev=http://localhost:6001/v1/api
 
-GET {{url_dev}}/jobs/9
+GET {{url_dev}}/jobs?page=1&pageSize=10
 Content-Type: application/json

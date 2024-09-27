@@ -1,13 +1,11 @@
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import DataGrid from "../../components/grid/DataGrid";
 
-export default function JobGrid({ rows, setRows }) {
+export default function JobGrid({ data, pagination, onPaginationModelChange }) {
   const navigate = useNavigate();
-  // const [rows, setRows] = useState(initialRows);
-  const [rowModesModel, setRowModesModel] = useState();
 
   const columns = [
     { field: "title", headerName: "Title", width: 200 },
@@ -38,7 +36,7 @@ export default function JobGrid({ rows, setRows }) {
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
-            onClick={handleDeleteClick(id)}
+            onClick={() => {}}
             color="inherit"
           />,
         ];
@@ -50,36 +48,15 @@ export default function JobGrid({ rows, setRows }) {
     navigate(`/jobs/${id}/edit`);
   };
 
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
-  };
+  const { totalCount, result } = data;
 
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
-
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
   return (
     <DataGrid
-      style={{ height: "auto", width: "100%" }}
-      pageSizeOptions={[10, 25, 50, 100]}
-      initialState={{
-        pagination: {
-          paginationModel: { pageSize: 10, page: 0 },
-        },
-      }}
-      rows={rows}
+      rows={result}
+      rowCount={totalCount}
       columns={columns}
-      rowModesModel={rowModesModel}
-      onRowModesModelChange={handleRowModesModelChange}
-      processRowUpdate={processRowUpdate}
-      slotProps={{
-        toolbar: { setRows, setRowModesModel },
-      }}
+      paginationModel={pagination}
+      onPaginationModelChange={onPaginationModelChange}
     />
   );
 }
