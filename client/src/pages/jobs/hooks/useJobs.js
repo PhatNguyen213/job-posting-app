@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getJobs } from "../../../services/job-service";
-import dayjs from "dayjs";
+import { DEFAULT_PAGE, DEFAULT_PAGESIZE } from "../../../constants";
 
 const transformResult = (result) =>
   result.map(
@@ -17,23 +17,30 @@ const transformResult = (result) =>
     })
   );
 
-export default function useJobs(pagination) {
-  const [result, setResult] = useState({ totalCount: 0, reuslt: [] });
+export const fetchJobs = async (
+  pagination = {
+    pageSize: DEFAULT_PAGESIZE,
+    page: DEFAULT_PAGE,
+  }
+) => {
+  try {
+    const response = await getJobs(pagination);
+    const { totalCount, result } = await response.json();
+    return {
+      totalCount,
+      result: transformResult(result),
+    };
+  } catch (error) {
+    console.log("Error fetching jobs", error);
+  }
+};
+
+export default function useJobs() {
+  const [result, setResult] = useState({ totalCount: 0, result: [] });
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await getJobs(pagination);
-        const { totalCount, result } = await response.json();
-        setResult({
-          totalCount,
-          result: transformResult(result),
-        });
-      } catch (error) {
-        console.log("Error fetching jobs");
-      }
-    })();
-  }, [pagination]);
+    fetchJobs().then(setResult);
+  }, []);
 
-  return result;
+  return [result, setResult];
 }

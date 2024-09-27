@@ -29,9 +29,14 @@ const getJobById = (id) => {
   return pool.query("SELECT * FROM jobs WHERE id=$1;", [id]);
 };
 
+const deleteJobById = (id) => {
+  return pool.query("DELETE FROM jobs WHERE id=$1 RETURNING *;", [id]);
+};
+
 module.exports = {
   createJob,
   updateJob,
+  deleteJobById,
   getJobs,
   getJobById,
   getTotalCount,

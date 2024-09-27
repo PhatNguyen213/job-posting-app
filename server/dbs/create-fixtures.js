@@ -1,7 +1,7 @@
 const pool = require("./db");
 
 function clearJobTable() {
-  return pool.query("DELETE * FROM jobs;");
+  return pool.query("DELETE FROM jobs;");
 }
 
 function createFixtures() {

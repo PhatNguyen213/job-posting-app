@@ -4,7 +4,7 @@ export default function DataGrid(props) {
   return (
     <Grid
       style={{ height: "auto", width: "100%" }}
-      pageSizeOptions={[10, 25, 50, 100]}
+      pageSizeOptions={[20, 50, 100]}
       paginationMode="server"
       {...props}
     />

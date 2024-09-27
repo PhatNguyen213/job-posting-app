@@ -17,7 +17,7 @@ export default function CreateJob() {
   const submit = async () => {
     const response = await createJob(form);
     const newJob = await response.json();
-    navigate(`/jobs/${newJob.id}/edit`);
+    navigate("/jobs");
   };
 
   return (

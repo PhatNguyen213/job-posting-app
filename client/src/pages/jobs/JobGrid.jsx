@@ -5,7 +5,12 @@ import { useNavigate } from "react-router-dom";
 import DataGrid from "../../components/grid/DataGrid";
 import dayjs from "dayjs";
 
-export default function JobGrid({ data, pagination, onPaginationModelChange }) {
+export default function JobGrid({
+  data,
+  pagination,
+  onPaginationModelChange,
+  onDeleteJob,
+}) {
   const navigate = useNavigate();
 
   const columns = [
@@ -50,7 +55,7 @@ export default function JobGrid({ data, pagination, onPaginationModelChange }) {
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
-            onClick={() => {}}
+            onClick={() => onDeleteJob(id)}
             color="inherit"
           />,
         ];

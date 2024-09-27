@@ -3,6 +3,7 @@ const {
   getJobById,
   createJob,
   updateJob,
+  deleteJobById,
   getTotalCount,
 } = require("../services/jobs");
 
@@ -48,7 +49,7 @@ class JobsController {
   deleteJob = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const job = await getJobById(id);
+      const job = await deleteJobById(id);
       return res.json(job.rows[0]);
     } catch (error) {
       console.log("Error fetching jobs", error);

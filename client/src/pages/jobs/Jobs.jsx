@@ -1,17 +1,27 @@
 import { Link } from "react-router-dom";
 import JobGrid from "./JobGrid";
 import { useState } from "react";
-import useJobs from "./hooks/useJobs";
-
-const DEFAULT_PAGESIZE = 10;
-const DEFAULT_PAGE = 0;
+import useJobs, { fetchJobs } from "./hooks/useJobs";
+import { DEFAULT_PAGE, DEFAULT_PAGESIZE } from "../../constants";
+import { deleteJob } from "../../services/job-service";
 
 export default function Jobs() {
   const [pagination, setPagination] = useState({
     pageSize: DEFAULT_PAGESIZE,
     page: DEFAULT_PAGE,
   });
-  const result = useJobs(pagination);
+  const [result, setResult] = useJobs(pagination);
+
+  const onPaginationChange = (newPagination) => {
+    setPagination(newPagination);
+    fetchJobs(newPagination).then(setResult);
+  };
+
+  const handleDeleteJob = (id) => {
+    deleteJob(id)
+      .then(() => fetchJobs())
+      .then(setResult);
+  };
 
   return (
     <>
@@ -23,7 +33,8 @@ export default function Jobs() {
         <JobGrid
           data={result}
           pagination={pagination}
-          onPaginationModelChange={setPagination}
+          onDeleteJob={handleDeleteJob}
+          onPaginationModelChange={onPaginationChange}
         />
       </main>
     </>
