@@ -16,7 +16,6 @@ export default function EditJob() {
       const response = await getJobById(jobId);
       const job = await response.json();
       const expiryDate = dayjs(job.expiry_date);
-      console.log(expiryDate);
       setForm({ ...job, expiryDate });
     })();
   }, [jobId]);

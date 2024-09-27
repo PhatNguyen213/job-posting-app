@@ -3,6 +3,7 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import DataGrid from "../../components/grid/DataGrid";
+import dayjs from "dayjs";
 
 export default function JobGrid({ data, pagination, onPaginationModelChange }) {
   const navigate = useNavigate();
@@ -16,8 +17,21 @@ export default function JobGrid({ data, pagination, onPaginationModelChange }) {
       type: "date",
       width: 180,
     },
-    { field: "created_at", headerName: "Created At", type: "date", width: 180 },
-    { field: "updated_at", headerName: "Updated At", type: "date", width: 180 },
+    {
+      field: "created_at",
+      type: "datetime",
+      valueFormatter: (value) => dayjs(value).format("DD/MM/YYYY hh:mm A"),
+      headerName: "Created At",
+      type: "date",
+      width: 200,
+    },
+    {
+      field: "updated_at",
+      headerName: "Updated At",
+      type: "datetime",
+      valueFormatter: (value) => dayjs(value).format("DD/MM/YYYY hh:mm A"),
+      width: 200,
+    },
     {
       field: "actions",
       type: "actions",

@@ -9,7 +9,6 @@ export default function JobForm({ form, setForm }) {
   };
 
   const handleChangeDate = (value) => {
-    console.log(new Date(value));
     setForm((prev) => ({ ...prev, expiryDate: value }));
   };
 
@@ -43,7 +42,7 @@ export default function JobForm({ form, setForm }) {
           required
         />
       </p>
-      <p className={`${classes.row} ${classes["datepicker-row"]}`}>
+      <div className={`${classes.row} ${classes["datepicker-row"]}`}>
         <label className={classes.label} htmlFor="description">
           Expiry Date
         </label>
@@ -55,7 +54,7 @@ export default function JobForm({ form, setForm }) {
             onChange={handleChangeDate}
           />
         </LocalizationProvider>
-      </p>
+      </div>
     </div>
   );
 }

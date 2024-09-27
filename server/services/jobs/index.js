@@ -9,7 +9,7 @@ const createJob = ({ title, description, expiry_date }) => {
 
 const updateJob = ({ id, title, description, expiry_date }) => {
   return pool.query(
-    "UPDATE jobs SET title = $1, description = $2, expiry_date = TO_DATE($3, 'DD/MM/YYYY') WHERE id = $4 RETURNING *;",
+    "UPDATE jobs SET title = $1, description = $2, expiry_date = TO_DATE($3, 'DD/MM/YYYY'), updated_at = CURRENT_TIMESTAMP WHERE id = $4 RETURNING *;",
     [title, description, expiry_date, id]
   );
 };
